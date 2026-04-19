@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>music player ui .*･｡ﾟ☆ﾟ.*･｡ﾟ</title>
+    <link rel="stylesheet" href="./style.css">
+   
+    <style>
+
+body {
+  background-image: url(bgblue.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin: 0;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.top-right-item {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 480px;
+  z-index: 100;
+  filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.3));
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.decorative-item {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.decorative-item:hover {
+  transform: scale(1.1) rotate(2deg); 
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+}
+.tape-player img {
+    width: 500px; 
+    height: auto; 
+    transition: transform 0.3s ease;
+}
+.tape-player img:hover {
+    transform: scale(1.05); 
+}
+
+.bottom-right-item {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 400px;
+  z-index: 90;
+}
+
+.bottom-left-item {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 400px;
+  z-index: 90;
+  filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.3));
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.bottom-left-item:hover {
+  transform: scale(1.1) rotate(-5deg); 
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.music-player {
+  font-family: 'VT323', monospace;
+  width: 550px;
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 #fff inset, -2px -2px 0 #000 inset;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+}
+
+.title-bar {
+  background-color: #020080;
+  color: white;
+  padding: 2px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.window-content {
+  background-color: #C0C0C0;
+  padding: 10px;
+}
+
+.album-cover {
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 #fff, -2px -2px 0 #000 inset;
+}
+
+button {
+  border: 2px solid #000;
+  box-shadow: 1px 1px 0 #fff, -1px -1px 0 #000 inset;
+  background-color: #C0C0C0;
+  cursor: pointer;
+  padding: 2px;
+}
+
+input[type="text"] {
+  border: 2px solid #000;
+  box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #000 inset;
+  background-color: white;
+  font-family: 'VT323', monospace;
+  padding: 2px;
+}
+
+.progress-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  height: 12px;
+  background-color: #808080;
+  border: 1px solid #000;
+  box-shadow: 1px 1px 0 #fff inset;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #020080;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.row-top {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.album-cover {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.controls-main {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.song-info input {
+  width: 100%;
+  margin-bottom: 5px;
+  background: #eee;
+  outline: none;
+  font-size: 18px;
+  padding: 5px;
+}
+
+button:active {
+  box-shadow: 1px 1px 0 #000 inset, -1px -1px 0 #fff inset;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding-top: 5px;
+    border-top: 1px solid #808080;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#search-input {
+    flex: 1;
+    min-width: 0; 
+    font-size: 14px;
+    border: 2px solid #000;
+    box-shadow: 1px 1px 0 #fff inset, -1px -1px 0 #000 inset;
+}
+
+#search-btn {
+    padding: 1px 5px;
+    font-size: 14px;
+}
+
+.volume-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+}
+
+.volume-buttons button {
+    width: 25px;
+    height: 25px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#vol-display {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.top-center-item {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  z-index: 100; 
+}
+
+.top-center-item:hover {
+  transform: translateX(-50%) scale(1.1) rotate(3deg);
+}
+
+.bottom-taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 35px;
+    background-color: #C0C0C0;
+    border-top: 2px solid #fff;
+    box-shadow: 0 -2px 0 #9aa6c3;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    z-index: 300;
+}
+
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'VT323', monospace;
+}
+
+.search-section input {
+    border: 2px solid #8796d7;
+    border-right-color: #fff;
+    border-bottom-color: #fff;
+    background-color: #fff;
+    padding: 2px 5px;
+    outline: none;
+}
+
+.search-section button {
+    padding: 1px 10px;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="main-content">
+    <img src="sillyog.png" class="top-center-item decorative-item" alt="Top Sticker">
+    
+    <div class="tape-player hover-decoration">
+        <img src="camera.png" alt="camera" class="decorative-item">
+    </div>
+    <img src="tinbox.png" class="top-right-item decorative-item" alt="tinbox">
+    <img src="cat.png" class="bottom-right-item decorative-item" alt="Cat Sticker">
+    <img src="miku.png" class="bottom-left-item decorative-item" alt="mikuleft">
+</div>
+
+    <div class="music-player">
+  <div class="title-bar">
+    <span>Song</span>
+    <button class="close-btn">[X]</button> 
+  </div>
+
+  <div class="window-content">
+    <div class="row-top">
+      <img src="meowlmusic.jpg" alt="Album Cover" class="album-cover">
+      <div class="compact-controls">
+        <img src="path/to/cd_pixel_art.png" alt="CD" class="pixel-cd">
+        <div class="volume-buttons">
+          <button>+</button>
+          <button>-</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-main">
+      <button class="pause">II</button>
+      <button class="stop">■</button>
+      <button class="prev">&lt;&lt;</button>
+      <button class="next">&gt;&gt;</button>
+      <button class="shuffle">🔀</button>
+      <button class="repeat">🔁</button>
+      <button class="heart">♥</button>
+    </div>
+
+    <div class="song-info">
+      <div>Artist: <input type="text" value="TheFatRat ⋆⭒˚｡⋆⋆⭒˚.⋆" readonly></div>
+      <div>Title: <input type="text" value="Time Lapse °❀⋆.ೃ࿔*:･ " readonly></div>
+    </div>
+
+    <div class="progress-bar-container">
+      <span class="current-time">0:00</span>
+      <div class="progress-bar">
+        <div class="progress" style="width: 45%;"></div> </div>
+      <span class="total-time">3:05</span>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-taskbar">
+    <div class="search-section">
+        <label for="search-input">Search‧₊˚♪ 𝄞₊˚⊹ : </label>
+        <input type="text" id="search-input" placeholder="Type song name...">
+        <button id="search-btn">Go</button>
+    </div>
+</div>
+
+<audio id="main-audio" src="TheFatRat - Time Lapse - TheFatRat (128k).mp3"></audio>
+
+
+
+<script>
+
+const audio = document.getElementById('main-audio');
+const playBtn = document.querySelector('.pause');
+const progressBar = document.querySelector('.progress');
+const currentTimeDisplay = document.querySelector('.current-time');
+const totalTimeDisplay = document.querySelector('.total-time');
+
+let isPlaying = false;
+
+function formatTime(seconds) {
+    let min = Math.floor(seconds / 60);
+    let sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? '0' + sec : sec}`;
+}
+
+function togglePlay() {
+    if (isPlaying) {
+        audio.pause();
+        playBtn.innerText = '▶';
+    } else {
+        audio.play();
+        playBtn.innerText = 'II';
+    }
+    isPlaying = !isPlaying;
+}
+
+playBtn.addEventListener('click', togglePlay);
+
+audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+        const progressPercent = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progressPercent}%`;
+        currentTimeDisplay.innerText = formatTime(audio.currentTime);
+    }
+});
+
+audio.addEventListener('loadedmetadata', () => {
+    totalTimeDisplay.innerText = formatTime(audio.duration);
+});
+
+audio.addEventListener('ended', () => {
+    isPlaying = false;
+    playBtn.innerText = '▶';
+    progressBar.style.width = '0%';
+});
+
+const volUpBtn = document.getElementById('vol-up');
+const volDownBtn = document.getElementById('vol-down');
+const volDisplay = document.getElementById('vol-display');
+
+volUpBtn.addEventListener('click', () => {
+    if (audio.volume <= 0.9) { 
+        audio.volume = (audio.volume + 0.1);
+    } else {
+        audio.volume = 1.0;
+    }
+    console.log("Current Volume:", audio.volume);
+    updateVolumeLabel();
+});
+
+volDownBtn.addEventListener('click', () => {
+    if (audio.volume >= 0.1) {
+        audio.volume = (audio.volume - 0.1);
+    } else {
+        audio.volume = 0;
+    }
+    updateVolumeLabel();
+});
+
+
+</script>
+
+
+</body>
+</html> 
